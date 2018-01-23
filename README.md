@@ -71,6 +71,7 @@ Output:
 3. BS_IDs.txt - The same as MS_IDs.txt, but for BackStreets. Only relevant for designs 2&3. The 6th column is the reverse primer to order.
 4. MSDensity.txt - a text file with as many rows as the number of loci you specified on the intersected file for your MainStreet, and in each row, 6 columns describing the locus as well as the density of Oligopaints oligos within it. Column #1 - MS_Region. The name you gave a locus when prepared an intersected file. For instance, 'DNMT1'. Column #2 - Start coordinate of the locus. Column #3 - End coordinate. Column #4 - Size (kb) of the locus. Column #5 - Number of Oligopaints Oligos assigned to that locus. Column #6 - Probes density (probes/kb).
 5. BSDensity.txt -  The same as MSDensity.txt, but for BackStreets. Only relevant for designs 2&3.
+6. Universal.txt - A text file with 1 row, containing the forward and reverse universal primers to order, as well as their number (row number) in the oligopool. 
 
 
 
