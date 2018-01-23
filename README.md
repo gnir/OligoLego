@@ -21,6 +21,9 @@ Universal - a 20 nt universal PCR primer sequence at both ends of each Oligopain
 Requirements:
 You would need MATLAB (MathWorks), or to run the Appending tool through a cluster that has MATLAB.
 
+Settings:
+You should add the Appending folder (with all its functions) to your MATLAB startup (startup.m). If you do not have a 'startup.m' file (should be in your MATLAB folder), you can download the 'AppendingStartup.m' (https://github.com/gnir/OligoLego/) and save it as startup.m in your MATLAB folder.
+
 Appending tool principles:
 1.	This tool uses streets (MainStreets, and BackStreets) that were designed using the MakingStreets tool, available here: [URL]. These streets were computationally designed to serve as good PCR primers, as well as FISH oligos. Each street is 20 nt, and has a complement toehold, which is 27 nt long. The toehold is designed to replace an existing street, and block an Oligopaint oligo from being detected (Nir et al. 2018). One can either download a pool of streets, blasted (using bowtie2) against a number of organisms, here: http://genetics.med.harvard.edu/oligopaints/. Or, use the MakingStreets tool, and design a new set of oligos.
 2.	When appending streets, the appending tool will only pair MainStreets with BackStreets that are predicted to be efficient PCR primers, thus allowing not only universal amplification, but also, locus-specific amplification. For doing so, it users a penalty table produced by the MakingStreets tool.
