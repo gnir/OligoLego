@@ -1,0 +1,5 @@
+chr19	0	520000	Compartment1
+chr19	520001	2000000	Compartment2A
+chr19	2000001	4000000	Compartment2B
+chr19	4000001	6440000	Compartment2C
+chr19	6440000	7400000	Compartment3
