@@ -1,0 +1,3 @@
+MS_Region	Start	End	Size_(kb)	#_of_OPs_probes	Density_(Probes/kb)
+Compartment2C	3970001	6440000	2.469999e+03	15386	6.229152e+00
+Compartment3	6440000	7400000	960	4159	4.332292e+00
