@@ -5,7 +5,7 @@ Appending tool documentation
 
 If you are using the appending tool, please cite it: [Guy Nir et al. 2018]	
 
-Documentation last edited: 01/22/18
+Documentation last edited: 01/23/18
 
 Goal: 
 
@@ -61,9 +61,16 @@ Note - ‘MaxAvoid’ and ‘SameUniversal’ are not required.
 Note – ‘MaxAvoid’ and ‘SameUniversal’ are not required.
 
 From terminal (example for calling design #1):
-matlab -nodesktop -nosplash -r "ApOPs('MS',╘MainStreetsIntersectedFile','Streets',‘StreetsFilePath','PTable','PenaltyTablePath','SavePath','YourSavePath','MaxAvoid','100'); exit"
+matlab -nodesktop -nosplash -r "ApOPs('MS','MainStreetsIntersectedFile','Streets',‘StreetsFilePath','PTable','PenaltyTablePath','SavePath','YourSavePath','MaxAvoid','100'); exit"
 Note – ‘MaxAvoid’ is not required.
 
+Output:
+
+1. Oligopaints.txt - a text file with your entire Oligopaints library. Each row is one Oligopaint oligo.
+2. MS_IDs.txt - a text file with as many rows as the number of loci you specified on the intersected file for your MainStreet, and in each row, 6 columns describing the MainStreet oligos that one may want to purchase for PCR primers, toeholds and bridges or secondaries, i.e. barcodes that bind a specific locus. Column #1 - MSRegionID. The name you gave a locus when prepared an intersected file. For instance, 'DNMT1'. Column #2 - ID. The appending tool assigns a numeric ID to each locus. Column #3 - Toe or StreetNum (depending in the design you set). Column #4 - Toe or StreetSequence. The toehold or street sequence that is the reverse complement to the locus-specific sequence appended to your Oligopaint oligo. Column #5 - BridgeSequence. For designs #1 and #2, this is identical to column #4. For design #3, which includes toeholds, this is the bridge/secondary to use. Column #6 - ForwardPrimerSeq. This is the forward primer to order.
+3. BS_IDs.txt - The same as MS_IDs.txt, but for BackStreets. Only relevant for designs 2&3. The 6th column is the reverse primer to order.
+4. MSDensity.txt - a text file with as many rows as the number of loci you specified on the intersected file for your MainStreet, and in each row, 6 columns describing the locus as well as the density of Oligopaints oligos within it. Column #1 - MS_Region. The name you gave a locus when prepared an intersected file. For instance, 'DNMT1'. Column #2 - Start coordinate of the locus. Column #3 - End coordinate. Column #4 - Size (kb) of the locus. Column #5 - Number of Oligopaints Oligos assigned to that locus. Column #6 - Probes density (probes/kb).
+5. BSDensity.txt -  The same as MSDensity.txt, but for BackStreets. Only relevant for designs 2&3.
 
 
 
