@@ -32,7 +32,7 @@ The appending tool currently supports the following 3 designs:
 3.	AppToMSBS (Fig. 1C) - appends the reverse complements of the toeholds for both MainStreets and BackStreets, and thus allows sequential hybridization imaging. Also appends a universal primer pair.
 General note - for historical reasons, the appending tool appends the reverse complements of streets in the oligo pool that is provided to the appending tool. However, the 5’ end universal street will be the same as the one in the pool.
 
- 
+ ![alt text](https://github.com/gnir/OligoLego/blob/master/AllDesigns.png)
 Figure 1. Supported Oligopaints designs. (A) Locus-specific for MainStreet only. (B). Locus-specific for MainStreet and BackStreet. (C). Locus-specific for MainStreet and BackStreet, including toeholds.
 
 Inputs:
@@ -48,6 +48,7 @@ c.	Run bedtools intersect from Terminal as follows (for Mac users): bedtools int
 Optional inputs:
 1.	Max Avoid - a flag for avoiding streets that have already been used in other libraries that are to be image simultaneously. For instance, you would like to image chromosome 1 and chromosome 3. You decide to start with chromosome 1, and you have noticed in the ‘Universal.txt’ output file that the 3╒ universal has the number ‘30’. Now you run the appending tool for chromosome 3, and add the ‘MaxAvoid’ flag, followed by ‘30’. 
 2.	Same Universal - a flag for using the same universal primers. One instance when this helpful is when designing Oligopaints from multiple chromosomes, and thus having to run the appending tool multiple times. One may still like to amplify the entire library, which again, consists of multiple chromosomes with a single PCR reaction. Therefore, after running the Appending tool once, you can use the ‘SameUniversal’ flag followed by the path to the Universal.txt ╘Universal.txt╒ file that was created by the Appending tool when you ran it previously.
+
 How to use:
 From MATLAB command line:
 1.	Call design #1 (AppMS): ApOPs('MS','MainStreetsIntersectedFile’,'Streets',StreetsFilePath','PTable','PenaltyTablePath','SavePath','YourSavePath','MaxAvoid','68','SameUniversal','UniversalFilePath');
