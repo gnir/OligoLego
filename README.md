@@ -1,5 +1,6 @@
 # OligoLego
 A tool for Oligopaints library design
+
 Appending tool documentation
 
 If you are using the appending tool, please cite it: [Guy Nir et al. 2018]	
@@ -50,6 +51,7 @@ Optional inputs:
 2.	Same Universal - a flag for using the same universal primers. One instance when this helpful is when designing Oligopaints from multiple chromosomes, and thus having to run the appending tool multiple times. One may still like to amplify the entire library, which again, consists of multiple chromosomes with a single PCR reaction. Therefore, after running the Appending tool once, you can use the ‘SameUniversal’ flag followed by the path to the Universal.txt ╘Universal.txt╒ file that was created by the Appending tool when you ran it previously.
 
 How to use:
+
 From MATLAB command line:
 1.	Call design #1 (AppMS): ApOPs('MS','MainStreetsIntersectedFile’,'Streets',StreetsFilePath','PTable','PenaltyTablePath','SavePath','YourSavePath','MaxAvoid','68','SameUniversal','UniversalFilePath');
 Note - ‘MaxAvoid’ and ‘SameUniversal’ are not required.
