@@ -81,5 +81,6 @@ Output example files can be found here: https://github.com/gnir/OligoLego/
 6. Universal.txt - A text file with 1 row, containing the forward and reverse universal primers to order, as well as their number (row number) in the oligopool. 
 7. data.mat - a MATLAB data file. 
 
+MakingStreets tool documentation
 
-
+This tool is for making new set of streets, i.e. oligopool.
