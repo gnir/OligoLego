@@ -81,5 +81,22 @@ Output example files can be found here: https://github.com/gnir/OligoLego/
 6. Universal.txt - A text file with 1 row, containing the forward and reverse universal primers to order, as well as their number (row number) in the oligopool. 
 7. data.mat - a MATLAB data file. 
 
+MakingStreets tool documentation
 
+Goal: 
 
+Make new set of streets, i.e. oligopool. Makingstreets, depending on the user input, can make a new set of 20-nt streets, as well as toeholds, where their size is determined by the user. 
+
+Principles:
+
+MakingStreets first draws random sequences, and then follows Primer3Plus settings (http://www.bioinformatics.nl/cgi-bin/primer3plus/primer3plus.cgi) to validtae each street as a potential PCR primer. When generating toeholds, it will also call NUPACK (http://www.nupack.org/), to thermodynamically predict that the toehold sequence will bind its reverse complement stronger than the street will. This is to increase the probability that the toehold will replace a secondary. NUPACK will be called again to filter out sequences that will adopt a secondary structure, thus, not adopting a linear conformation, which is expected to be more optimized for FISH. Each street and toehold will also be screened against any other street and toehold in the pool to avoid cross-talk when hybridzing, and for PCR purposes. The oligopool will be aligned against a genome of choice to ensure that non of the sequences align with the specified genomes, using bowtie2 (http://bowtie-bio.sourceforge.net/bowtie2/index.shtml). Then a 'Penalty Matrix' will be built to determine compability of any possible streets pair in terms of PCR primer. This is to ensure that each MainStreet and BackStreet paired together, may serve as PCR primer pair. Finally, MakingStreets will output a number of files, inclusing the Oligopool and the Penalty Matrix, which will be futher discussed in the output section.
+
+Requirements:
+
+This is currently Mac-only as NUPACK and Bowtie2 are easier to handle with Mac.
+MATLAB (The Mathowrks).
+Bowtie2 and NUPACK properly installed (defined in your PATH). And you have to make the builds for the genomes you would like to align against the streets. You can find detailed explenations of how to install both here: https://github.com/brianbeliveau/OligoMiner (thanks Brian).
+
+Settings:
+
+You would need to define bowtie2 and NUPACK for MATLAB, so it knows where to find them. You can find an example startup.m file, where you just have to change the paths given in the file here: https://github.com/gnir/OligoLego. Rename StartupAppendingMakingStreets.m as startup.m
