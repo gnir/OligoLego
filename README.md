@@ -83,4 +83,10 @@ Output example files can be found here: https://github.com/gnir/OligoLego/
 
 MakingStreets tool documentation
 
-This tool is for making new set of streets, i.e. oligopool.
+Goal: 
+
+Make new set of streets, i.e. oligopool. Makingstreets, depending on the user input, can make a new set of 20-nt streets, as well as toeholds, where their size is determined by the user. 
+
+Principles:
+
+MakingStreets first draws random sequences, and then follows Primer3Plus settings (http://www.bioinformatics.nl/cgi-bin/primer3plus/primer3plus.cgi) to validtae each street as a potential PCR primer. When generating toeholds, it will also call NUPACK (http://www.nupack.org/), to thermodynamically predict that the toehold sequence will bind its reverse complement stronger than the street will. This is to increase the probability that the toehold will replace a secondary. NUPACK will be called again to filter out sequences that will adopt a secondary structure, thus, not adopting a linear conformation, which is expected to be more optimized for FISH. Each street and toehold will also be screened against any other street and toehold in the pool to avoid cross-talk when hybridzing, and for PCR purposes. The oligopool will be aligned against a genome of choice to ensure that non of the sequences align with the specified genomes.
