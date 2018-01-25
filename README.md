@@ -96,3 +96,7 @@ Requirements:
 This is currently Mac-only as NUPACK and Bowtie2 are easier to handle with Mac.
 MATLAB (The Mathowrks).
 Bowtie2 and NUPACK properly installed (defined in your PATH). And you have to make the builds for the genomes you would like to align against the streets. You can find detailed explenations of how to install both here: https://github.com/brianbeliveau/OligoMiner (thanks Brian).
+
+Settings:
+
+You would need to define bowtie2 and NUPACK for MATLAB, so it knows where to find them. You can find an example startup.m file, where you just have to change the paths given in the file here: https://github.com/gnir/OligoLego. Rename StartupAppendingMakingStreets.m as startup.m
