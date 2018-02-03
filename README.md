@@ -99,4 +99,28 @@ Bowtie2 and NUPACK properly installed (defined in your PATH). And you have to ma
 
 Settings:
 
-You would need to define bowtie2 and NUPACK for MATLAB, so it knows where to find them. You can find an example startup.m file, where you just have to change the paths given in the file here: https://github.com/gnir/OligoLego. Rename StartupAppendingMakingStreets.m as startup.m
+You would need to define bowtie2 and NUPACK for MATLAB, so it knows where to find them. You can find an example startup.m file, where you just have to change the paths given in the file here: https://github.com/gnir/OligoLego. Rename StartupAppendingMakingStreets.m as startup.m in your MATLAB folder.
+
+How to use:
+
+Load the script to the MATLAB editor. Then navigate to this block:
+
+%% Define save path
+SavePath='/Users/guynir/Documents/MATLAB/Scratch/'; % the folder where the street files will be saved
+d=date;
+Prefix=strcat('StreetsData_',d);
+FullSavePath=strcat(SavePath,Prefix);
+
+Change the SavePath folder to a folder of your desire.
+
+Now navigate to this block:
+
+%% Define bowtie2 path
+BowScratchPath='/Users/guynir/bowtie2-2.2.9/Scratch/'; % make a sctratch path in bowtie where you will save temp files
+BowBuildPath='/Users/guynir/bowtie2-2.2.9/builds/'; % path to bowtie builds
+
+Make a scratch path to save temp files, and in the second row enter the path to your bowtie builds.
+
+Then you can click 'Run', and answer the questions that you would be asked. 
+First you would be asked whether you would like to upload an existing pool or make a new one. If you are choosing to load existing, then a load file dialouge box will open up, and you would be required to navigate to your existing pool. This is useful if you have a set of streets, which you would like 'MakingStreets' to filter. MakingStreets expects a text file, where each row is a different street (sequence). This option is currently limited, as it expects the sequences to be 27 nt, where the first 7 nt will serve for toehold. For different length of toeholds, please ontact me.
+If you choose 'Make New', then you would be asked if you like to generate toeholds as well. The streets will be 20 nt long, but you can chane the length of the toe, and thus make toeholds at different length. Then you would be asked for the number of streets you would like to make, and if you chose toeholds as well, then enter the toe length, for instance, if you want 50 toeholds with 27 nt, you enter 50, and 7.
