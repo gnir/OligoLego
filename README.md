@@ -5,7 +5,8 @@ Appending tool documentation
 
 If you are using the appending tool, please cite it: [Guy Nir et al. 2018]	
 
-Documentation last edited: 01/23/18
+Documentation last edited: 06/08/18
+
 
 Goal: 
 
@@ -20,6 +21,9 @@ Universal - a 20 nt universal PCR primer sequence at both ends of each Oligopain
 
 Requirements:
 You would need MATLAB (MathWorks), or to run the Appending tool through a cluster that has MATLAB.
+
+Downlaods:
+To run the Appending tool you would need to download the 'Appending' folder
 
 Settings:
 You should add the Appending folder (with all its functions) to your MATLAB startup (startup.m). If you do not have a 'startup.m' file (should be in your MATLAB folder), you can download the 'AppendingStartup.m' (https://github.com/gnir/OligoLego/) and save it as startup.m in your MATLAB folder.
@@ -96,6 +100,9 @@ Requirements:
 This is currently Mac-only as NUPACK and Bowtie2 are easier to handle with Mac.
 MATLAB (The Mathowrks).
 Bowtie2 and NUPACK properly installed (defined in your PATH). And you have to make the builds for the genomes you would like to align against the streets. You can find detailed explenations of how to install both here: https://github.com/brianbeliveau/OligoMiner (thanks Brian).
+
+Downlaods:
+To run the 'MakingStreets' tool you would need to download the 'Appending' folder and 'MakingStreets.m'
 
 Settings:
 
