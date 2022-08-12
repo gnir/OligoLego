@@ -32,6 +32,8 @@ if ~isempty(varargin)
             SOLiDcode = SOLiDBarcoding(4,Toes,'RC');
             exclude=filterSOLiD(SOLiDcode,Hamming-1); % When inputing Hamming-1, function will filter with Hamming value.
             [Streets, Toes, PairsMat, SOLiDcode]  = ReducePool(exclude,'Streets',Streets,'Toes',Toes,'PTable',PairsMat,'SOLiDCode',SOLiDcode);
+        elseif strcmp(varargin{i},'MultipleUniversals')
+            numUni=varargin{i+1};
         end % if strcmp(varargin{i},'SameUniversal')
     end % for i=1:nargin
 end % if ~isempty(varargin)
@@ -696,7 +698,7 @@ for i=1:size(BackCell,1)
                 end % if BackCell{i,10}~=BackCell{i+1,10} && BackCell{i,11}==BackCell{i+1,11}
             end % if i~=size(BackCell,1)
         end % if isempty(BackCell(BackCell{i,11}==mainUnique)) % check if there is no mainstreet
-    iIDX=i;
+        iIDX=i;
     end % if i~=BisM % to avoid duplicates
     waitbar(i/size(BackCell,1))
 end
@@ -710,29 +712,39 @@ if exist('UniF','var')
     U_MS_N=cat(2,PrF,UniF);
     UniversalBS=Streets(UniR,:);
     U_BS_N=cat(2,PrR,UniR);
+    numUni=1; % Should change this to support adding multiple universal primer pairs.
 else
-    if max(PrR(:))>=max(PrF(:))
-        StartToe=max(PrR(:));
-    else
-        StartToe=max(PrF(:));
-    end % if max(PrR(:))>=max(PrF(:))
-    flag=0;
-    while flag==0
-        for j=StartToe+1:size(PairsMat,1)-1
-            for k=StartToe+2:size(PairsMat,1)
-                if PairsMat(j,k)<=3 && flag==0
-                    PrF(end+1)=j; PrR(end+1)=k;
-                    flag=1;
-                end % if PairsMat(j,k)<=3 && flag==0
-            end % for k=PrR+1:size(PairsMat,1)
-        end % for j=PrF+1:size(PairsMat,1)-1
-    end % while
-    for i=1:size(OligoPaints,1)
-        OligoPaints{i,:}=strcat(Streets(PrF(end),:),OligoPaints{i,:},ReverseComplement(Streets(PrR(end),:),1));
-    end % for i=1:size(OligoPaints,1)
-    UniversalMS=Streets(PrF(end),:); % Forward primer sequence
+    if ~exist('numUni','var')
+        numUni=1;
+    end % if ~exist('numUni','var')
+    UniversalMS=strings(numUni,1);
+    UniversalBS=strings(numUni,1);
+    t=1;
+    for ii=1:numUni
+        if max(PrR(:))>=max(PrF(:))
+            StartToe=max(PrR(:));
+        else
+            StartToe=max(PrF(:));
+        end % if max(PrR(:))>=max(PrF(:))
+        flag=0;
+        while flag==0
+            for j=StartToe+1:size(PairsMat,1)-1
+                for k=StartToe+2:size(PairsMat,1)
+                    if PairsMat(j,k)<=3 && flag==0
+                        PrF(end+1)=j; PrR(end+1)=k;
+                        flag=1;
+                    end % if PairsMat(j,k)<=3 && flag==0
+                end % for k=PrR+1:size(PairsMat,1)
+            end % for j=PrF+1:size(PairsMat,1)-1
+        end % while flag==0
+        for i=t:round(size(OligoPaints,1)*((ii/numUni)))
+            OligoPaints{i,:}=strcat(Streets(PrF(end),:),OligoPaints{i,:},ReverseComplement(Streets(PrR(end),:),1));
+        end % for i=1:size(OligoPaints,1)
+        UniversalMS(ii,:)=Streets(PrF(end),:); % Forward primer sequences
+        UniversalBS(ii,:)=Streets(PrR(end),:); % Reverse primer sequences        
+        t=i+1;
+    end % for ii=1:numUni
     U_MS_N=PrF;
-    UniversalBS=Streets(PrR(end),:); % Reverse primer sequence
     U_BS_N=PrR;
 end % if exists('UniF','var')
 %% Sort Oligopaints probes by starting coordinate (min to max)
@@ -1090,12 +1102,15 @@ else
     end % for i=1:size(MToes,2)
 end % if ~exist('SOLiDCode','var')
 fclose(fileID);
-
+SaveName='data.mat';
+save(strcat(SavePath,SaveName));
 prefix='Universal.txt';
 outputUniversal=strcat(SavePath,prefix);
 fileID=fopen(outputUniversal,'w');
 fprintf(fileID,'UniMainNum\tUniMainSequence\tUniBackiNum\tUniBackRCSequence\n');
-fprintf(fileID,'%d\t%s\t%d\t%s\n',U_MS_N(end),UniversalMS,U_BS_N(end),UniversalBS);
+for i=1:size(UniversalMS,1)
+fprintf(fileID,'%d\t%s\t%d\t%s\n',U_MS_N(end-numUni+i),UniversalMS(i,:),U_BS_N(end-numUni+i),UniversalBS(i,:));
+end % for i=1:size(UniversalMS,1)
 fclose(fileID);
 
 prefix='MSDensity.txt';

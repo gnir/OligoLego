@@ -70,18 +70,19 @@ while ToeFlag==0 || flag==0
     [statusComp,Compout] = unix(complexesCmd);
     [statusConc,Concout] = unix(concCmd);
     
-    ToeEq=load(strcat(NUPACKInputPath,'.eq'));
+    A=importdata(strcat(NUPACKInputPath,'.eq'));
+    ToeEq=A.data;
     for i=1:size(ToeEq,1)
-        if ToeEq(i,2)==1 && ToeEq(i,4)==1
-            ToeRCStab=ToeEq(i,6)/StrandCon;
-        elseif ToeEq(i,3)==1 && ToeEq(i,4)==1
-            NoToeRCStab=ToeEq(i,6)/StrandCon;
-        elseif ToeEq(i,2)==2
-            SelfDup2=ToeEq(i,6)/StrandCon;
+        if ToeEq(i,3)==1 && ToeEq(i,5)==1 % Columns in Nupack 3.2.2 are 3-5, but 2-4 in 3.0.6
+            ToeRCStab=ToeEq(i,7)/StrandCon; % Column 7 in Nupack 3.2.2, but 6 in Nupack 3.0.6
+        elseif ToeEq(i,4)==1 && ToeEq(i,5)==1
+            NoToeRCStab=ToeEq(i,7)/StrandCon;
         elseif ToeEq(i,3)==2
-            SelfDup3=ToeEq(i,6)/StrandCon;
+            SelfDup2=ToeEq(i,7)/StrandCon;
         elseif ToeEq(i,4)==2
-            SelfDup4=ToeEq(i,6)/StrandCon;
+            SelfDup3=ToeEq(i,7)/StrandCon;
+        elseif ToeEq(i,5)==2
+            SelfDup4=ToeEq(i,7)/StrandCon;
         end % if ToeEq(i,2)==1 && ToeEq(i,4)==1
     end % for i=1:size(ToeEq,1)
     if ToeRCStab>.9 && NoToeRCStab>0.001 && SelfDup2<0.0001 && SelfDup3<0.0001 && SelfDup4<0.0001

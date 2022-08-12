@@ -41,6 +41,9 @@ AppendBS=0;
 MaxAvoid=0;
 SOLiDBarcoding=0;
 SameUniFlag=0;
+PTFlag=0;
+MultiUniFlag=0;
+N_BS=1; N_MS=1; % Number of MS and BS barcodes on each street
 for i=1:2:nargin-1
     if strcmp(varargin{i},'Toes')
         AppendToes=1;
@@ -56,22 +59,40 @@ for i=1:2:nargin-1
         StreetsPath=varargin{i+1};
     elseif strcmp(varargin{i},'PTable')
         PTablePath=varargin{i+1};
+        PTFlag=1;
     elseif strcmp(varargin{i},'SavePath')
         SavePath=varargin{i+1};
     elseif strcmp(varargin{i},'SameUniversal')
         UniPath=varargin{i+1};
         SameUniFlag=1;
+    elseif strcmp(varargin{i},'MultipleUniversals')
+        MultiUniFlag=1;
+        numUni=varargin{i+1};
     elseif strcmp(varargin{i},'SOLiDStreets')
         SOLiDBarcoding=1;
         Hamming=varargin{i+1};
     elseif strcmp(varargin{i},'SOLiDToes')
         SOLiDBarcoding=2;
         Hamming=varargin{i+1};
+    elseif strcmp(varargin{i},'NBS')
+        N_BS=varargin{i+1};
+    elseif strcmp(varargin{i},'NMS')
+        N_MS=varargin{i+1};
     end % if strcmp(varargin{i},'Toes')
 end % for i=1:2:nargin-1
+if PTFlag==0
+    command=['wc -l ',StreetsPath];
+    [status,cmdout] = unix(command);
+    N_Streets=str2double(cmdout(isstrprop(cmdout,'digit')));
+    PTablePath=MakeDummyPTable(N_Streets,StreetsPath); % Will save to the Streetpath
+end % if PTFlag==0
 %% Call specific appending street function
-if AppendToes==1 && AppendBS==1 && SameUniFlag==0 && SOLiDBarcoding==0
+if AppendToes==1 && AppendBS==1 && SameUniFlag==0 && ...
+        SOLiDBarcoding==0 && MultiUniFlag==0
     AppToMSBS(MSPath,BSPath,StreetsPath,PTablePath,ToesPath,MaxAvoid,SavePath);
+elseif AppendToes==1 && AppendBS==1 && SameUniFlag==0 && ...
+        SOLiDBarcoding==0 && MultiUniFlag==1
+    AppToMSBS(MSPath,BSPath,StreetsPath,PTablePath,ToesPath,MaxAvoid,SavePath,'MultipleUniversals',numUni);
 elseif AppendToes==1 && AppendBS==1 && SameUniFlag==1 && SOLiDBarcoding==0
     AppToMSBS(MSPath,BSPath,StreetsPath,PTablePath,ToesPath,MaxAvoid,SavePath,'SameUniversal',UniPath);
 elseif AppendToes==1 && AppendBS==1 && SameUniFlag==0 && SOLiDBarcoding==1

@@ -8,12 +8,22 @@ switch nargin
     case 0
         [FileName,PathName] = uigetfile({'*.txt','*.xlsx'},'Select the txt file to load');
         fid = fopen([PathName,FileName]);
+        flag=0;
     case 1
         fid = fopen(InputFile);
+        flag=1;
 end
 delimiter = char(9); %for a tab
 tLines = fgets(fid);
+fclose(fid);
 numCols = numel(strfind(tLines,delimiter)) + 1;
+
+if flag==0
+    fid = fopen([PathName,FileName]);
+else
+    fid = fopen(InputFile);
+end % if flag==0
+
 txtfile=textscan(fid,'%s','Delimiter','\t');
 fclose(fid);
 %% Orginizing text file
