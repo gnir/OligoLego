@@ -20,8 +20,8 @@ if ~isempty(varargin)
     for i=1:Nvarargin
         if strcmp(varargin{i},'SameUniversal')
             Uni=Loadingtxt(varargin{i+1});
-            UniR=str2double(Uni{1,3});
-            UniF=str2double(Uni{1,1});
+            UniR=str2double(Uni{2,3});
+            UniF=str2double(Uni{2,1});
         elseif strcmp(varargin{i},'SOLiDStreets')
             SOLiDcode = SOLiDBarcoding(4,Streets,'RC');
             Hamming=varargin{i+1};
